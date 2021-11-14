@@ -176,7 +176,14 @@ Vue.component('predict-view', {
                 try{
                     await navigator.share(shareData);
                 }catch(err) {
-                    console.log(err);
+                    const tempElem = document.createElement('textarea');
+                    tempElem.value = window.location.href;  
+                    document.body.appendChild(tempElem);
+                
+                    tempElem.select();
+                    document.execCommand("copy");
+                    document.body.removeChild(tempElem);
+                    alert('링크가 복사되었습니다!');
                 }
             }) 
 
