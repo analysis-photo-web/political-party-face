@@ -69,8 +69,8 @@ Vue.component('predict-view', {
             <section class="upload-container">
                 <label for="upload-input">
                     <div>
-                        <p><img src="${STATIC_PATH}/img/upload.svg"></p>
-                        <p>사진 업로드</p>
+                        <p><img id="upload-img" src="${STATIC_PATH}/img/upload.svg"></p>
+                        <p id="upload-text">사진 업로드</p>
                     </div>
                 </label>
                 <input type="file" id="upload-input" name="upload-input" multiple accept="image/*" v-show=false v-on:change="loadPictureAndPredict">
@@ -90,7 +90,8 @@ Vue.component('predict-view', {
     methods: {
         async loadPictureAndPredict(event) {
 
-            document.querySelector('.upload-input > div > p')[1].innerText = '분석중';
+            document.getElementById('upload-text').innerText = '분석 중';
+            document.getElementById('upload-img').src = `${STATIC_PATH}/img/analysis-loading.svg`;
             
             // Load Picture
             var file = event.target.files;
@@ -163,6 +164,8 @@ Vue.component('predict-view', {
         },
         reload() {
             this.$emit('reload');
+            document.getElementById('upload-text').innerText = '사진 업로드';
+            document.getElementById('upload-img').src = `${STATIC_PATH}/img/upload.svg`;
             document.querySelector('.upload-container').style.display = 'block';
             document.querySelector('.result-container').style.display = 'none';
         },

@@ -173,7 +173,10 @@ body {
 .upload-container > label > div > p > img {
     width: 70px;
     fill: #fffafa;
-    transform: translateY(20px);
+    transform: translateY(12px);
+}
+.upload-container > label > div > p:nth-child(2) {
+    transform: translateY(10px);
 }
 
 .result-container {
