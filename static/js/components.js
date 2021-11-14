@@ -82,7 +82,7 @@ Vue.component('predict-view', {
                 </div>
                 <p id="predict-prop"></p>
                 <img src="${STATIC_PATH}/img/gold_badge.svg"/>
-                <button class="share-btn" v-on:click="share">공유하기</button>
+                <button class="share-btn">공유하기</button>
             </section>
         </div>
     `,
@@ -164,20 +164,37 @@ Vue.component('predict-view', {
             document.querySelector('.upload-container').style.display = 'block';
             document.querySelector('.result-container').style.display = 'none';
         },
-        async share() {
-
-            // if (!shareUID) return;
-
+        mounted() {
             const shareData = {
                 title: 'AI 얼굴 인식 정당 추천',
                 text: '내 얼굴로 확인해보는 운명의 정당 찾기!',
                 url: 'https://analysis-photo.com/',
             }
-            try{
-                await navigator.share(shareData);
-            }catch(err){
-                console.log(err);
-            }
+
+            const btn = document.querySelector('.share-btn');
+            btn.addEventListener('click', async () => {
+                try{
+                    await navigator.share(shareData);
+                }catch(err) {
+                    console.log(err);
+                }
+            }) 
+
         }
+        // async share() {
+
+        //     // if (!shareUID) return;
+
+        //     const shareData = {
+        //         title: 'AI 얼굴 인식 정당 추천',
+        //         text: '내 얼굴로 확인해보는 운명의 정당 찾기!',
+        //         url: 'https://analysis-photo.com/',
+        //     }
+        //     try{
+        //         await navigator.share(shareData);
+        //     }catch(err){
+        //         console.log(err);
+        //     }
+        // }
     },
 });
