@@ -34,18 +34,20 @@ const partyColor = {
     7: '#661b85'
 }
 
+var shareUID = null;
+
 Vue.component('predict-view', {
     template: `
         <div class="predict-view-container">
             <section class="wait-view">
                 <div class="party-btn">
-                    <!-- 1 더불어민주당 --> <div style="border: 1px solid #004EA2" :style="party_num==1 ? {background: '${partyColor[1]}'} : {backgroud: '#fff'}"></div>
-                    <!-- 2 국민의힘 --> <div style="border: 1px solid #E61E2B" :style="party_num==2 ? {background: '${partyColor[2]}'} : {backgroud: '#fff'}"></div>
-                    <!-- 3 정의당--> <div style="border: 1px solid #FFCC00" :style="party_num==3 ? {background: '${partyColor[3]}'} : {backgroud: '#fff'}"></div>
-                    <!-- 4 국민의당 --> <div style="border: 1px solid #EA5504" :style="party_num==4 ? {background: '${partyColor[4]}'} : {backgroud: '#fff'}"></div>
-                    <!-- 5 열린민주당 --> <div style="border: 1px solid #003E9B" :style="party_num==5 ? {background: '${partyColor[5]}'} : {backgroud: '#fff'}"></div>
-                    <!-- 6 기본소득당 --> <div style="border: 1px solid #82C8B4" :style="party_num==6 ? {background: '${partyColor[6]}'} : {backgroud: '#fff'}"></div>
-                    <!-- 7 시대전한 --> <div style="border: 1px solid #661b85" :style="party_num==7 ? {background: '${partyColor[7]}'} : {backgroud: '#fff'}"></div>
+                    <!-- 1 더불어민주당 --> <div style="border: 1px solid #004EA2" :style="party_num==1 ? {background: '${partyColor[1]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 2 국민의힘 --> <div style="border: 1px solid #E61E2B" :style="party_num==2 ? {background: '${partyColor[2]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 3 정의당--> <div style="border: 1px solid #FFCC00" :style="party_num==3 ? {background: '${partyColor[3]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 4 국민의당 --> <div style="border: 1px solid #EA5504" :style="party_num==4 ? {background: '${partyColor[4]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 5 열린민주당 --> <div style="border: 1px solid #003E9B" :style="party_num==5 ? {background: '${partyColor[5]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 6 기본소득당 --> <div style="border: 1px solid #82C8B4" :style="party_num==6 ? {background: '${partyColor[6]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 7 시대전한 --> <div style="border: 1px solid #661b85" :style="party_num==7 ? {background: '${partyColor[7]}'} : {background: '#a52a2a00'}"></div>
                 </div>
                 <div class="party-img">
                     <!-- 1 더불어민주당 --> <img v-show="party_num==1 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-1-face.jpeg">
@@ -80,6 +82,7 @@ Vue.component('predict-view', {
                 </div>
                 <p id="predict-prop"></p>
                 <img src="${STATIC_PATH}/img/gold_badge.svg"/>
+                <button class="share-btn" v-on:click="share">결과 공유하기</button>
             </section>
         </div>
     `,
@@ -134,11 +137,47 @@ Vue.component('predict-view', {
             document.querySelector('.upload-container').style.display = 'none';
             document.querySelector('.result-container').style.display = 'block';
 
+            // Save Result
+            const userImgBase64 = await toBase64(file[0]);
+            const fileUID = makeUID();
+            fetch('http://localhost:8088/generate', {
+                method: 'POST',
+                body: JSON.stringify({
+                    userImgBase64,
+                    partyNum,
+                    props,
+                    fileUID
+                }),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then( () => { shareUID = fileUID } )
+            .catch(err => {
+                console.log(err);
+                shareUID = null;
+            });
+
         },
         reload() {
             this.$emit('reload');
             document.querySelector('.upload-container').style.display = 'block';
             document.querySelector('.result-container').style.display = 'none';
+        },
+        async share() {
+
+            if (!shareUID) return;
+            
+            const shareData = {
+                title: 'AI 얼굴 인식 정당 추천',
+                text: '내 얼굴로 확인해보는 운명의 정당 찾기!',
+                url: `window.location.href/${shareUID}`,
+            }
+            try{
+                await navigator.share(shareData);
+            }catch(err){
+                console.log(err);
+            }
         }
     },
 });

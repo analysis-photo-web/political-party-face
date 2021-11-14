@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>PPF</title>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <link rel="favicon" href="static/favicon.ico">
     <link rel="stylesheet" href="static/css/basic.css">
     <script>
         var getModel = function(){
@@ -45,6 +46,7 @@
             v-bind:party_num="party_num" v-bind:predicted="predicted">
         </predict-view>
     </div>
+    <script src="static/js/utils.js"></script>
     <script src="static/js/components.js"></script>
     <script src="static/js/vue-import.js"></script>
 </body>

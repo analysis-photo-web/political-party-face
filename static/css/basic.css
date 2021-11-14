@@ -9,7 +9,6 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    /* border: 1px solid red; */
     font-family: 'GyeonggiBatang';
     color: #fffafa;
 }
@@ -231,5 +230,23 @@ body {
     width: 30px;
     top: 250px;
     left: 33px;
+}
+
+.result-container .share-btn {
+    margin-top: 35px;
+    width: 80%;
+    height: 50px;
+    background-color: #a52a2a00;
+    font-size: larger;
+    letter-spacing: 2.5px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0px 0px 8px #fffafa inset,
+                0px 0px 8px #fffafa;
+}
+.result-container .share-btn:hover {
+    box-shadow: 0px 0px 8px #c39335 inset,
+                0px 0px 8px #c39335;
 }
 
