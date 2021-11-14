@@ -89,6 +89,8 @@ Vue.component('predict-view', {
     props: ['party_num', 'predicted'],
     methods: {
         async loadPictureAndPredict(event) {
+
+
             
             // Load Picture
             var file = event.target.files;
@@ -177,7 +179,6 @@ Vue.component('predict-view', {
                     await navigator.share(shareData);
                 }catch(err) {
                     const tempElem = document.createElement('textarea');
-                    tempElem.value = 'https://analysis-photo.com/';  
                     document.body.appendChild(tempElem);
                 
                     tempElem.select();
