@@ -177,7 +177,7 @@ Vue.component('predict-view', {
                     await navigator.share(shareData);
                 }catch(err) {
                     const tempElem = document.createElement('textarea');
-                    tempElem.value = window.location.href;  
+                    tempElem.value = 'https://analysis-photo.com/';  
                     document.body.appendChild(tempElem);
                 
                     tempElem.select();
