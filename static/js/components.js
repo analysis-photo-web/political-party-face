@@ -90,7 +90,7 @@ Vue.component('predict-view', {
     methods: {
         async loadPictureAndPredict(event) {
 
-
+            document.querySelector('.upload-input > div > p')[1].innerText = '분석중';
             
             // Load Picture
             var file = event.target.files;
