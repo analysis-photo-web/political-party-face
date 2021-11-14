@@ -82,7 +82,7 @@ Vue.component('predict-view', {
                 </div>
                 <p id="predict-prop"></p>
                 <img src="${STATIC_PATH}/img/gold_badge.svg"/>
-                <button class="share-btn" v-on:click="share">결과 공유하기</button>
+                <button class="share-btn" v-on:click="share">공유하기</button>
             </section>
         </div>
     `,
@@ -138,25 +138,25 @@ Vue.component('predict-view', {
             document.querySelector('.result-container').style.display = 'block';
 
             // Save Result
-            const userImgBase64 = await toBase64(file[0]);
-            const fileUID = makeUID();
-            fetch('http://localhost:8088/generate', {
-                method: 'POST',
-                body: JSON.stringify({
-                    userImgBase64,
-                    partyNum,
-                    props,
-                    fileUID
-                }),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then( () => { shareUID = fileUID } )
-            .catch(err => {
-                console.log(err);
-                shareUID = null;
-            });
+            // const userImgBase64 = await toBase64(file[0]);
+            // const fileUID = makeUID();
+            // fetch('http://localhost:8088/generate', {
+            //     method: 'POST',
+            //     body: JSON.stringify({
+            //         userImgBase64,
+            //         partyNum,
+            //         props,
+            //         fileUID
+            //     }),
+            //     headers: {
+            //         'Content-Type': 'application/json'
+            //     }
+            // })
+            // .then( () => { shareUID = fileUID } )
+            // .catch(err => {
+            //     console.log(err);
+            //     shareUID = null;
+            // });
 
         },
         reload() {
@@ -166,12 +166,12 @@ Vue.component('predict-view', {
         },
         async share() {
 
-            if (!shareUID) return;
-            
+            // if (!shareUID) return;
+
             const shareData = {
                 title: 'AI 얼굴 인식 정당 추천',
                 text: '내 얼굴로 확인해보는 운명의 정당 찾기!',
-                url: `window.location.href/${shareUID}`,
+                url: `window.location.href`,
             }
             try{
                 await navigator.share(shareData);
