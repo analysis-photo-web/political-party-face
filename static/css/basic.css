@@ -1,0 +1,235 @@
+@font-face { 
+    font-family: 'GyeonggiBatang'; 
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/GyeonggiBatang.woff') format('woff'); 
+    font-weight: normal; 
+    font-style: normal; 
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /* border: 1px solid red; */
+    font-family: 'GyeonggiBatang';
+    color: #fffafa;
+}
+
+body {
+    background-color: rgb(51, 51, 51);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.header {
+    width: 100%;
+    min-width: 360px;
+    height: 100px;
+    text-align: center;
+}
+
+.header .app-name {
+    height: 60px;
+    line-height: 70px;
+    font-size: 23px;
+    letter-spacing: 7px;
+}
+.header .app-name > a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.header .app-name-sub {
+    padding: 0px 3px;
+    color: #fff;
+}
+
+.header .app-desc {
+    padding-top: 5px;
+}
+
+#app {
+    width: 360px;
+    height: 500px;
+    margin-top: 17px;
+}
+
+#app > div {
+    text-align: center;
+}
+
+.main-view-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.main-view-container > img {
+    height: 250px;
+    background-size: cover;
+}
+
+.main-view-container .logo > p {
+    padding: 5px 0px;
+    font-size: 32px;
+    color: #fff;
+}
+
+.main-view-container .start-btn {
+    width: 80%;
+    height: 50px;
+    background-color: #a52a2a00;
+    font-size: larger;
+    letter-spacing: 2.5px;
+    font-family: Arial, Helvetica, sans-serif;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0px 0px 8px #fffafa inset,
+                0px 0px 8px #fffafa;
+}
+.main-view-container .start-btn:hover {
+    box-shadow: 0px 0px 8px #c39335 inset,
+                0px 0px 8px #c39335;
+}
+
+.predict-view-container {
+    width: 100%;
+}
+
+.predict-view-container .wait-view .party-btn {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.predict-view-container .wait-view .party-btn > div {
+    width: 20px;
+    height: 20px;
+    border-radius: 30%;
+}
+
+.predict-view-container .wait-view .party-img {
+    margin: 20px;
+    padding: 7px;
+    height: 75px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    background-color: rgba(17, 25, 40, 0.75);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.125);
+}
+
+.predict-view-container .wait-view .party-img .party-face {
+    height: 58px;
+    object-fit: cover;
+    border-radius: 7%;
+}
+
+.predict-view-container .wait-view .party-img .party-logo {
+    height: 35px;
+    object-fit: cover;
+}
+
+.upload-container {
+    width: inherit;
+    height: 200px;
+    padding: 20px;
+}
+
+.upload-container > label > div {
+    width: inherit;
+    height: 200px;
+    padding: 20px;
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 4px 8px 0 rgba( 255, 255, 255, 0.2 );
+    backdrop-filter: blur( 2px );
+    -webkit-backdrop-filter: blur( 2px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    cursor: pointer;
+}
+
+.upload-container > label > div > p {
+    width: 100%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 26px;
+    font-weight: 700;
+    letter-spacing: -1.8px;
+    text-shadow: 3px 2px 6px rgb(51, 51, 51, 0.7);
+}
+
+.upload-container > label > div > p > img {
+    width: 70px;
+    fill: #fffafa;
+    transform: translateY(20px);
+}
+
+.result-container {
+    position: relative;
+    width: inherit;
+    padding: 20px;
+}
+
+.result-container > div {
+    width: 100%;
+    height: 200px;
+    background: rgba( 255, 255, 255, 0.3 );
+    box-shadow: 0 4px 8px 0 rgba( 255, 255, 255, 0.2 );
+    backdrop-filter: blur( 2px );
+    -webkit-backdrop-filter: blur( 2px );
+    border-radius: 10px;
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+}
+
+.result-container > div {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.result-container > div > button {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 30px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.result-container > div > img {
+    height: 180px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.result-container > p {
+    margin-top: 15px;
+    height: 70px;
+    line-height: 70px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 36px;
+    font-weight: 600;
+}
+.result-container > img {
+    position: absolute;
+    width: 30px;
+    top: 250px;
+    left: 33px;
+}
+
