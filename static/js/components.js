@@ -171,7 +171,7 @@ Vue.component('predict-view', {
             const shareData = {
                 title: 'AI 얼굴 인식 정당 추천',
                 text: '내 얼굴로 확인해보는 운명의 정당 찾기!',
-                url: window.location.href,
+                url: 'https://analysis-photo.com/',
             }
             try{
                 await navigator.share(shareData);
