@@ -5,12 +5,10 @@
     font-style: normal; 
 }
 @font-face {
-    font-family: 'NanumSquareRound';
-    src: url(https://alpha-hangeul.naver.com/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.eot);
-    src: url(https://alpha-hangeul.naver.com/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.eot?#iefix) format("embedded-opentype"), 
-        url(https://alpha-hangeul.naver.com/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.woff2) format("woff2"), 
-        url(https://alpha-hangeul.naver.com/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.woff) format("woff"), 
-        url(https://alpha-hangeul.naver.com/hangeul_static/webfont/NanumSquareRound/NanumSquareRoundR.ttf) format("truetype");
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
 }
 /** Standard style of App
  */
@@ -20,7 +18,7 @@
     --stc-gold: #c39335;
     --transparent: #00000000;
     --stc-font: 'GyeonggiBatang';
-    --stc-font-sub: 'NanumSquareRound';
+    --stc-font-sub: 'Cafe24Ssurround';
 }
 /** Common style
  */
@@ -50,7 +48,6 @@
     font-size: 19px;
     font-family: var(--stc-font-sub);
     letter-spacing: 3px;
-    font-weight: 600;
     cursor: pointer;
 }
 .btn:hover {
@@ -213,7 +210,6 @@ body {
     font-family: var(--stc-font-sub);
     font-size: 26px;
     font-weight: 700;
-    letter-spacing: -1.8px;
     text-shadow: 3px 2px 6px rgb(51, 51, 51, 0.7);
 }
 img#upload-img {
@@ -262,7 +258,7 @@ p#upload-text {
 }
 
 .result-container > p#predict-prop { /** result predcted propability */
-    margin: 13px 0px 15px 0px;
+    margin: 13px 0px 15px 20px;
     height: 70px;
     line-height: 70px;
     font-family: var(--stc-font-sub);

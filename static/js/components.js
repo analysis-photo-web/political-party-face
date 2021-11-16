@@ -1,4 +1,3 @@
-const STATIC_PATH = 'static'
 
 Vue.component('main-view', {
     template: `
@@ -20,28 +19,18 @@ Vue.component('main-view', {
     }
 });
 
-const partyColor = {
-    1: '#004EA2',
-    2: '#E61E2B',
-    3: '#FFCC00',
-    4: '#EA5504',
-    5: '#003E9B',
-    6: '#82C8B4',
-    7: '#661b85'
-}
-
 Vue.component('predict-view', {
     template: `
         <div class="prdict-view">
             <section>
                 <div class="cnt-r rot-container">
-                    <!-- 1 더불어민주당 --> <div class="rot-box" data-party="1" :style="party_num==1 ? {background: '${partyColor[1]}'} : {background: '#a52a2a00'}"></div>
-                    <!-- 2 국민의힘 --> <div class="rot-box" data-party="2" :style="party_num==2 ? {background: '${partyColor[2]}'} : {background: '#a52a2a00'}"></div>
-                    <!-- 3 정의당--> <div class="rot-box" data-party="3" :style="party_num==3 ? {background: '${partyColor[3]}'} : {background: '#a52a2a00'}"></div>
-                    <!-- 4 국민의당 --> <div class="rot-box" data-party="4" :style="party_num==4 ? {background: '${partyColor[4]}'} : {background: '#a52a2a00'}"></div>
-                    <!-- 5 열린민주당 --> <div class="rot-box" data-party="5" :style="party_num==5 ? {background: '${partyColor[5]}'} : {background: '#a52a2a00'}"></div>
-                    <!-- 6 기본소득당 --> <div class="rot-box" data-party="6" :style="party_num==6 ? {background: '${partyColor[6]}'} : {background: '#a52a2a00'}"></div>
-                    <!-- 7 시대전한 --> <div class="rot-box" data-party="7" :style="party_num==7 ? {background: '${partyColor[7]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 1 더불어민주당 --> <div class="rot-box" data-party="1" :style="party_num==1 ? {background: '${PARTY_COLOR[1]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 2 국민의힘 --> <div class="rot-box" data-party="2" :style="party_num==2 ? {background: '${PARTY_COLOR[2]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 3 정의당--> <div class="rot-box" data-party="3" :style="party_num==3 ? {background: '${PARTY_COLOR[3]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 4 국민의당 --> <div class="rot-box" data-party="4" :style="party_num==4 ? {background: '${PARTY_COLOR[4]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 5 열린민주당 --> <div class="rot-box" data-party="5" :style="party_num==5 ? {background: '${PARTY_COLOR[5]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 6 기본소득당 --> <div class="rot-box" data-party="6" :style="party_num==6 ? {background: '${PARTY_COLOR[6]}'} : {background: '#a52a2a00'}"></div>
+                    <!-- 7 시대전한 --> <div class="rot-box" data-party="7" :style="party_num==7 ? {background: '${PARTY_COLOR[7]}'} : {background: '#a52a2a00'}"></div>
                 </div>
                 <div class="cnt-r party-container">
                     <!-- 1 더불어민주당 --> <img v-show="party_num==1 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-1-face.jpeg">
@@ -82,8 +71,16 @@ Vue.component('predict-view', {
             </section>
         </div>
     `,
+    mounted() {
+        if(!this.canShare()){
+            document.getElementById('share-btn').innerText = '링크복사';
+        }
+    },
     props: ['party_num', 'predicted'],
     methods: {
+        canShare(){
+            return navigator.share;
+        },
         async loadPictureAndPredict(event) {
 
             document.getElementById('upload-text').innerText = '분석 중';
@@ -95,23 +92,18 @@ Vue.component('predict-view', {
             var img = document.getElementById('uploaded');
             img.src = url;
             
-            // let mo = await getModel();
             let wait = 0;
             while (!model) {
                 // model loading isn't finished
                 window.setTimeout(() => {
                     console.log('Wait for loading model...');
+                    wait ++;
                 }, 1000);
-                wait ++;
                 if(wait == 8) break;
             }
             if(wait == 8){
                 alert('모델을 로딩하는데 실패하였습니다.');
-                this.$emit('reload');
-                document.getElementById('upload-text').innerText = '사진 업로드';
-                document.getElementById('upload-img').src = `${STATIC_PATH}/img/upload.svg`;
-                document.querySelector('.upload-container').style.display = 'block';
-                document.querySelector('.result-container').style.display = 'none';
+                this.reload();
                 return;
             }
 
@@ -130,25 +122,25 @@ Vue.component('predict-view', {
             }
 
             var partyNum;
-            if(result['className'] == '더불어민주당') {
+            if(result['className'] == PARTY_NAME[1]) {
                 partyNum = 1;
-            }else if(result['className'] == '국민의힘') {
+            }else if(result['className'] == PARTY_NAME[2]) {
                 partyNum = 2;
-            }else if(result['className'] == '정의당') {
+            }else if(result['className'] == PARTY_NAME[3]) {
                 partyNum = 3;
-            }else if(result['className'] == '국민의당') {
+            }else if(result['className'] == PARTY_NAME[4]) {
                 partyNum = 4;
-            }else if(result['className'] == '열린민주당') {
+            }else if(result['className'] == PARTY_NAME[5]) {
                 partyNum = 5;
-            }else if(result['className'] == '기본소득당') {
+            }else if(result['className'] == PARTY_NAME[6]) {
                 partyNum = 6;
-            }else if(result['className'] == '시대전환') {
+            }else if(result['className'] == PARTY_NAME[7]) {
                 partyNum = 7;
             }
 
             var props = `${Math.ceil(result['probability'] * 1000)/10}%`;
             document.getElementById('predict-prop').innerText = props + ' 일치';
-            document.getElementById('predict-prop').style.color = partyColor[partyNum];
+            document.getElementById('predict-prop').style.color = PARTY_COLOR[partyNum];
 
             this.$emit('predict', partyNum);
 
@@ -162,31 +154,27 @@ Vue.component('predict-view', {
             document.getElementById('upload-img').src = `${STATIC_PATH}/img/upload.svg`;
             document.querySelector('.upload-container').style.display = 'block';
             document.querySelector('.result-container').style.display = 'none';
+            document.getElementById('uploaded').src = '';
         },
         async shareLink() {
             const shareData = {
                 title: 'AI 얼굴 인식 정당 추천',
                 text: '내 얼굴로 확인해보는 운명의 정당 찾기!',
-                url: 'https://analysis-photo.com/',
+                url: `${APP_HOST}`,
             }
-
-            if (!navigator.share) {
+            if (!this.canShare()) {
                 console.log('navigator share is undefined');
-                var pasteEvent = new ClipboardEvent('paste');
-                pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
-                document.dispatchEvent(pasteEvent);
-                console.log("fail")
-                const tempElem = document.createElement('textarea');
-                tempElem.value = "www.analysis-photo.com"
-                document.body.appendChild(tempElem);
-              
-                tempElem.select();
-                document.execCommand("copy");
-                document.body.removeChild(tempElem);
-                alert('링크가 복사되었습니다!');
+                this.pasteTo();
             }else {
                 await navigator.share(shareData);
             }
+        },
+        pasteTo() {
+            var tempT = document.createElement('textarea');
+            tempT.value = `${APP_HOST}`;
+            tempT.select();
+            document.execCommand('copy');
+            alert(`[링크가 복사되었습니다]\n${APP_HOST}`);
         }
     },
 });

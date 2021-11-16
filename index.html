@@ -34,12 +34,14 @@
             v-on:predict="predict_handler"
             v-on:reload="reload_handler"
             v-show="page_name==='predict'" 
-            v-bind:party_num="party_num" v-bind:predicted="predicted">
+            v-bind:party_num="party_num" 
+            v-bind:predicted="predicted">
         </predict-view>
     </div>
 
-    <!-- Load Script : utils -->
+    <!-- Load Script : utils & variable -->
     <script src="static/js/utils.js"></script>
+    <script src="static/js/variable.js"></script>
 
     <!-- Load Script : vue -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
