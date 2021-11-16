@@ -82,7 +82,7 @@ Vue.component('predict-view', {
                 </div>
                 <p id="predict-prop"></p>
                 <img src="${STATIC_PATH}/img/gold_badge.svg"/>
-                <button class="share-btn">공유하기</button>
+                <button class="share-btn" v-on:click="mounted">공유하기</button>
             </section>
         </div>
     `,
@@ -179,11 +179,17 @@ Vue.component('predict-view', {
             const btn = document.querySelector('.share-btn');
             btn.addEventListener('click', async () => {
                 try{
-                    await navigator.share(shareData);
-                }catch(err) {
-                    const tempElem = document.createElement('textarea');
-                    document.body.appendChild(tempElem);
                 
+                    await navigator.userAgentData.share(shareData);
+                }catch(err) {
+                    // var pasteEvent = new ClipboardEvent('paste');
+                    // pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
+                    // document.dispatchEvent(pasteEvent);
+                    // console.log("fail")
+                    const tempElem = document.createElement('textarea');
+                    tempElem.value = "www.analysis-photo.com"
+                    document.body.appendChild(tempElem);
+                  
                     tempElem.select();
                     document.execCommand("copy");
                     document.body.removeChild(tempElem);
