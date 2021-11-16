@@ -78,7 +78,7 @@ Vue.component('predict-view', {
                 <p class="ntc-photo">사진은 저장되지 않습니다.</p>
                 <p id="predict-prop"></p>
                 <img src="${STATIC_PATH}/img/gold_badge.svg"/>
-                <button class="btn" v-on:click="mounted">공유하기</button>
+                <button id="share-btn" class="btn" v-on:click="shareLink">공유하기</button>
             </section>
         </div>
     `,
@@ -96,8 +96,26 @@ Vue.component('predict-view', {
             img.src = url;
             
             // let mo = await getModel();
-            let mo = model;
-            let prediction = await mo.predict(img);
+            let wait = 0;
+            while (!model) {
+                // model loading isn't finished
+                window.setTimeout(() => {
+                    console.log('Wait for loading model...');
+                }, 1000);
+                wait ++;
+                if(wait == 8) break;
+            }
+            if(wait == 8){
+                alert('모델을 로딩하는데 실패하였습니다.');
+                this.$emit('reload');
+                document.getElementById('upload-text').innerText = '사진 업로드';
+                document.getElementById('upload-img').src = `${STATIC_PATH}/img/upload.svg`;
+                document.querySelector('.upload-container').style.display = 'block';
+                document.querySelector('.result-container').style.display = 'none';
+                return;
+            }
+
+            let prediction = await model.predict(img);
             
             // 가장 높은 정확도를 가진 정당 찾기.!
             var result = {
@@ -137,27 +155,6 @@ Vue.component('predict-view', {
             document.querySelector('.upload-container').style.display = 'none';
             document.querySelector('.result-container').style.display = 'block';
 
-            // Save Result
-            // const userImgBase64 = await toBase64(file[0]);
-            // const fileUID = makeUID();
-            // fetch('http://localhost:8088/generate', {
-            //     method: 'POST',
-            //     body: JSON.stringify({
-            //         userImgBase64,
-            //         partyNum,
-            //         props,
-            //         fileUID
-            //     }),
-            //     headers: {
-            //         'Content-Type': 'application/json'
-            //     }
-            // })
-            // .then( () => { shareUID = fileUID } )
-            // .catch(err => {
-            //     console.log(err);
-            //     shareUID = null;
-            // });
-
         },
         reload() {
             this.$emit('reload');
@@ -166,33 +163,46 @@ Vue.component('predict-view', {
             document.querySelector('.upload-container').style.display = 'block';
             document.querySelector('.result-container').style.display = 'none';
         },
-        mounted() {
+        async shareLink() {
             const shareData = {
                 title: 'AI 얼굴 인식 정당 추천',
                 text: '내 얼굴로 확인해보는 운명의 정당 찾기!',
                 url: 'https://analysis-photo.com/',
             }
 
-            const btn = document.querySelector('.share-btn');
-            btn.addEventListener('click', async () => {
-                try{
-                
-                    await navigator.userAgentData.share(shareData);
-                }catch(err) {
-                    // var pasteEvent = new ClipboardEvent('paste');
-                    // pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
-                    // document.dispatchEvent(pasteEvent);
-                    // console.log("fail")
-                    const tempElem = document.createElement('textarea');
-                    tempElem.value = "www.analysis-photo.com"
-                    document.body.appendChild(tempElem);
+            const btn = document.getElementById('share-btn');
+            try{
+                await navigator.share(shareData);
+            }catch(err) {
+                const tempElem = document.createElement('textarea');
+                tempElem.value = "www.analysis-photo.com"
+                document.body.appendChild(tempElem);
+            
+                tempElem.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempElem);
+                alert('링크가 복사되었습니다!');
+            }
+            
+            // btn.addEventListener('click', async () => {
+            //     try{
+            //         console.log('a');
+            //         await navigator.userAgentData.share(shareData);
+            //     }catch(err) {
+            //         // var pasteEvent = new ClipboardEvent('paste');
+            //         // pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
+            //         // document.dispatchEvent(pasteEvent);
+            //         // console.log("fail")
+            //         const tempElem = document.createElement('textarea');
+            //         tempElem.value = "www.analysis-photo.com"
+            //         document.body.appendChild(tempElem);
                   
-                    tempElem.select();
-                    document.execCommand("copy");
-                    document.body.removeChild(tempElem);
-                    alert('링크가 복사되었습니다!');
-                }
-            }) 
+            //         tempElem.select();
+            //         document.execCommand("copy");
+            //         document.body.removeChild(tempElem);
+            //         alert('링크가 복사되었습니다!');
+            //     }
+            // }) 
 
         }
     },
