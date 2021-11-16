@@ -177,7 +177,7 @@ Vue.component('predict-view', {
             btn.addEventListener('click', async () => {
                 try{
                 
-                    await navigator.userAgentData.share(shareData);
+                    await navigator.share(shareData);
                 }catch(err) {
                     // var pasteEvent = new ClipboardEvent('paste');
                     // pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
