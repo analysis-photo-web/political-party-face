@@ -170,8 +170,8 @@ Vue.component('predict-view', {
                 url: 'https://analysis-photo.com/',
             }
 
-            const btn = document.getElementById('share-btn');
             if (!navigator.share) {
+                console.log('navigator share is undefined');
                 var pasteEvent = new ClipboardEvent('paste');
                 pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
                 document.dispatchEvent(pasteEvent);
