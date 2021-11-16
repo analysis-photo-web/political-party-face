@@ -5,33 +5,24 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PPF</title>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
     <link rel="shortcut icon" href="static/favicon.ico">
-    <link rel="stylesheet" href="static/css/basic.css">
-    <script>
-        var getModel = function(){
-            const modelPath = "./static/model/";
-            const modelURL = modelPath + "model.json";
-            const metadataURL = modelPath + "metadata.json";
-            return tmImage.load(modelURL, metadataURL);
-        };
-    </script>
+    <link rel="stylesheet" href="static/css/basic.css"> 
 </head>
-<body>
+<body class="cnt-c">
     <header class="header">
-        <div class="app-name">
+        <div class="logo">
             <a href="/">
                 <span>P</span>
-                <span style="color: #c39335;">P</span>
+                <span class="pnt">P</span>
                 <span>F</span>
             </a>
         </div>
-        <span class="app-name-sub" style="color: #c39335;">Political</span>
-        <span class="app-name-sub">Party</span>
-        <span class="app-name-sub" style="color: #c39335;">Face</span>
-        <p class="app-desc">20대, 21대 국회의원들의 사진을 학습한 AI Model</p>
+        <p class="logo-full">
+            <span class="pnt">Political</span>
+            <span>Party</span>
+            <span class="pnt">Face</span>
+        </p>
+        <p>20대, 21대 국회의원들의 사진을 학습한 AI Model</p>
     </header>
     <div id="app">
         <main-view 
@@ -42,13 +33,25 @@
             v-on:page_move="page_move_handler"
             v-on:predict="predict_handler"
             v-on:reload="reload_handler"
-            v-if="page_name==='predict'" 
+            v-show="page_name==='predict'" 
             v-bind:party_num="party_num" v-bind:predicted="predicted">
         </predict-view>
     </div>
+
+    <!-- Load Script : utils -->
     <script src="static/js/utils.js"></script>
+
+    <!-- Load Script : vue -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
     <script src="static/js/components.js"></script>
     <script src="static/js/vue-import.js"></script>
+    
+    <!-- Load Script : model -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
+    <script type="text/javascript" src="static/js/model-loader.js"></script>
+
+    <!-- Load ad -->
     <ins class="kakao_ad_area" style="display:none;" 
         data-ad-unit    = "DAN-UtjhkgUlFll6uq3G" 
         data-ad-width   = "320" 

@@ -1,2 +1,5 @@
 /result-generator/node_modules
 /result-generator/package-lock.json
+
+.DS_Store
+/static/.DS_Store

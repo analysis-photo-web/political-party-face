@@ -1,7 +1,7 @@
 const app = new Vue({
     el: '#app',
     data: {
-        page_name: 'main',
+        page_name: 'predict',
         party_num: 1,
         move_stop: false,
         predicted: false
