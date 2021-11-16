@@ -171,39 +171,22 @@ Vue.component('predict-view', {
             }
 
             const btn = document.getElementById('share-btn');
-            try{
-                await navigator.share(shareData);
-            }catch(err) {
+            if (!navigator.share) {
+                var pasteEvent = new ClipboardEvent('paste');
+                pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
+                document.dispatchEvent(pasteEvent);
+                console.log("fail")
                 const tempElem = document.createElement('textarea');
                 tempElem.value = "www.analysis-photo.com"
                 document.body.appendChild(tempElem);
-            
+              
                 tempElem.select();
                 document.execCommand("copy");
                 document.body.removeChild(tempElem);
                 alert('링크가 복사되었습니다!');
+            }else {
+                await navigator.share(shareData);
             }
-            
-            // btn.addEventListener('click', async () => {
-            //     try{
-            //         console.log('a');
-            //         await navigator.userAgentData.share(shareData);
-            //     }catch(err) {
-            //         // var pasteEvent = new ClipboardEvent('paste');
-            //         // pasteEvent.clipboardData.items.add('https://analysis-photo.com/', 'text/plain');
-            //         // document.dispatchEvent(pasteEvent);
-            //         // console.log("fail")
-            //         const tempElem = document.createElement('textarea');
-            //         tempElem.value = "www.analysis-photo.com"
-            //         document.body.appendChild(tempElem);
-                  
-            //         tempElem.select();
-            //         document.execCommand("copy");
-            //         document.body.removeChild(tempElem);
-            //         alert('링크가 복사되었습니다!');
-            //     }
-            // }) 
-
         }
     },
 });
