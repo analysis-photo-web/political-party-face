@@ -92,17 +92,11 @@ Vue.component('predict-view', {
             var img = document.getElementById('uploaded');
             img.src = url;
             
-            let wait = 0;
-            while (!model) {
-                // model loading isn't finished
-                window.setTimeout(() => {
-                    console.log('Wait for loading model...');
-                    wait ++;
-                }, 1000);
-                if(wait == 8) break;
-            }
-            if(wait == 8){
-                alert('모델을 로딩하는데 실패하였습니다.');
+            var model;
+            try{
+                model = await tmImage.load(MODEL_URL, METADATA_URL);
+            } catch {
+                alert('모델 로딩에 실패했습니다!\n죄송합니다!ㅠㅠ');
                 this.reload();
                 return;
             }

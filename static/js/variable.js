@@ -18,3 +18,7 @@ const PARTY_NAME = {
     7: '시대전환'
 }
 const APP_HOST = 'https://analysis-photo.com/'
+
+const MODEL_PATH = "./static/model/";
+const MODEL_URL = MODEL_PATH + "model.json";
+const METADATA_URL = MODEL_PATH + "metadata.json";
