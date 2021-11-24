@@ -178,6 +178,13 @@ body {
     object-fit: cover;
     border-radius: 7%;
 }
+.party-container .party-name {
+    height: 35px;
+    line-height: 35px;
+    width: 110px;
+    background-color: var(--transparent);
+    font-size: 17px;
+}
 .party-container .party-logo {
     height: 35px;
     object-fit: cover;

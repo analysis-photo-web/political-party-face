@@ -34,19 +34,26 @@ Vue.component('predict-view', {
                 </div>
                 <div class="cnt-r party-container">
                     <!-- 1 더불어민주당 --> <img v-show="party_num==1 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-1-face.jpeg">
-                    <!-- 1 더불어민주당 --> <img v-show="party_num==1" class="party-logo" src="${STATIC_PATH}/img/party-1-logo.png">
+                    <!-- 1 더불어민주당 <img v-show="party_num==1" class="party-logo" src="${STATIC_PATH}/img/party-1-logo.png"> -->
+                                        <div v-show="party_num==1" class="party-name" style="color:${PARTY_COLOR[1]};">더불어민주당</div>
                     <!-- 2 국민의힘 --> <img v-show="party_num==2 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-2-face.jpeg">
-                    <!-- 2 국민의힘 --> <img v-show="party_num==2" class="party-logo" src="${STATIC_PATH}/img/party-2-logo.png">
+                    <!-- 2 국민의힘 <img v-show="party_num==2" class="party-logo" src="${STATIC_PATH}/img/party-2-logo.png"> --> 
+                                        <div v-show="party_num==2" class="party-name" style="color:${PARTY_COLOR[2]};">국민의힘</div>   
                     <!-- 3 정의당--> <img v-show="party_num==3 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-3-face.jpg">
-                    <!-- 3 정의당--> <img v-show="party_num==3" class="party-logo" src="${STATIC_PATH}/img/party-3-logo.png">
+                    <!-- 3 정의당 <img v-show="party_num==3" class="party-logo" src="${STATIC_PATH}/img/party-3-logo.png"> -->
+                                    <div v-show="party_num==3" class="party-name" style="color:${PARTY_COLOR[3]};">정의당</div>   
                     <!-- 4 국민의당 --> <img v-show="party_num==4 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-4-face.jpeg">
-                    <!-- 4 국민의당 --> <img v-show="party_num==4" class="party-logo" src="${STATIC_PATH}/img/party-4-logo.png">
+                    <!-- 4 국민의당 <img v-show="party_num==4" class="party-logo" src="${STATIC_PATH}/img/party-4-logo.png"> -->
+                                      <div v-show="party_num==4" class="party-name" style="color:${PARTY_COLOR[4]};">국민의당</div>   
                     <!-- 5 열린민주당 --> <img v-show="party_num==5 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-5-face.jpg">
-                    <!-- 5 열린민주당 --> <img v-show="party_num==5" class="party-logo" src="${STATIC_PATH}/img/party-5-logo.png">
+                    <!-- 5 열린민주당 <img v-show="party_num==5" class="party-logo" src="${STATIC_PATH}/img/party-5-logo.png"> -->
+                                       <div v-show="party_num==5" class="party-name" style="color:${PARTY_COLOR[5]};">열린민주당</div>   
                     <!-- 6 기본소득당 --> <img v-show="party_num==6 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-6-face.jpg">
-                    <!-- 6 기본소득당 --> <img v-show="party_num==6" class="party-logo" src="${STATIC_PATH}/img/party-6-logo.png">
+                    <!-- 6 기본소득당 <img v-show="party_num==6" class="party-logo" src="${STATIC_PATH}/img/party-6-logo.png"> -->
+                                        <div v-show="party_num==6" class="party-name" style="color:${PARTY_COLOR[6]};">기본소득당</div>   
                     <!-- 7 시대전한 --> <img v-show="party_num==7 && !predicted" class="party-face" src="${STATIC_PATH}/img/party-7-face.jpg">
-                    <!-- 7 시대전한 --> <img v-show="party_num==7" class="party-logo" src="${STATIC_PATH}/img/party-7-logo.png">
+                    <!-- 7 시대전한 <img v-show="party_num==7" class="party-logo" src="${STATIC_PATH}/img/party-7-logo.png"> -->
+                                     <div v-show="party_num==7" class="party-name" style="color:${PARTY_COLOR[7]};">시대전환</div>   
                 </div>
             </section>
             <section class="upload-container">
